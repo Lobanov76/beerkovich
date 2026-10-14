@@ -433,12 +433,13 @@ footer .wrap{z-index:2}
   .tap .d{display:none}
   .tap.own .n::after{margin-top:1px}
   .board .foot{font-size:15px;margin-top:12px;gap:8px}
-  /* банки не заходят на текст: маленькие, внизу, в отступе блока */
-  .flyer{width:80px!important;top:auto!important;bottom:-38px!important}
-  #draft,#food,#reviews{padding-bottom:190px}                 /* место под банку, текст не перекрывается */
+  /* банки на телефоне: сверху справа, рядом с заголовком; текст рядом чуть уже, чтобы не залезал под банку */
+  .flyer{width:72px!important;bottom:auto!important;left:auto!important;right:-4px!important}
+  #draft .flyer{top:64px!important}
+  #food .flyer{top:56px!important}
+  #reviews .flyer{top:150px!important}
+  .draft-intro,.food-head,.rev-grid>div:first-child{padding-right:76px}
   .draft .hop{width:190px!important;height:190px!important}
-  .flyer[data-from="left"]{left:-6px!important;right:auto!important}
-  .flyer[data-from="right"]{right:-6px!important;left:auto!important}
   .stage{height:360px}
   .glass{width:170px;height:260px;margin-left:-85px}
   .glass b{font-size:18px}
