@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beerkovich - разливное, крафт и настойки в Ташкенте</title>
+<meta name="description" content="Beerkovich: алкомаркет, бар и рюмочная в Ташкенте. 20 кранов, 250 видов крафта, 42 настойки, кухня до 4 утра. UNO на Шевченко, 8 открыт 24/7, доставка круглосуточно.">
+<meta name="theme-color" content="#0e1712">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Caveat:wght@500;700&family=Golos+Text:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="preload" as="image" href="img/hero-poster.jpg?v=5">
+<style>
+:root{
+  --forest:#0e1712;
+  --forest-2:#13201a;
+  --gold:#c9a14a;
+  --gold-2:#e2bd66;
+  --cream:#efe7d5;
+  --cream-2:#e5dbc4;
+  --ink:#201d17;
+  --ink-2:#5d5546;
+  --light:#efe9da;
+  --muted:#b5b09f;
+  --acid:#eef05a;          /* фирменный жёлтый из их сторис */
+  --line-d:rgba(239,233,218,.14);
+  --line-l:rgba(32,29,23,.14);
+  --serif:"Playfair Display", Georgia, serif;
+  --sans:"Golos Text", system-ui, sans-serif;
+  --chalk:"Caveat", cursive;
+  --chalk-h:"Amatic SC", cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--forest);color:var(--light);font:400 16px/1.6 var(--sans);overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.08;letter-spacing:.01em;text-transform:uppercase}
+h2{font-size:clamp(30px,3.6vw,46px)}
+.kicker{display:block;font:600 italic clamp(18px,1.6vw,22px)/1.3 var(--serif);color:var(--gold);text-transform:none;letter-spacing:0;margin-top:10px}
+:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+section{position:relative}
+
+/* кнопки */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 26px;font:600 13px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;white-space:nowrap;border:1px solid transparent;background:transparent;color:inherit;cursor:pointer;transition:background-color .25s,color .25s,border-color .25s,transform .2s var(--ease)}
+.btn i{font-size:18px;transition:transform .25s var(--ease)}
+.btn:hover i{transform:translateX(4px)}
+.btn:active{transform:scale(.98)}
+.btn-gold{background:var(--gold);color:#1d160a}
+.btn-gold:hover{background:var(--gold-2)}
+.btn-line{border-color:rgba(201,161,74,.7);color:var(--gold-2)}
+.btn-line:hover{background:rgba(201,161,74,.12)}
+.btn-dark{background:var(--ink);color:var(--cream)}
+.btn-dark:hover{background:#3a3226}
+
+/* хмель: настоящие фото, края растворяются в фоне */
+.hop{position:absolute;pointer-events:none;z-index:1;filter:brightness(.62) saturate(.9)}
+.hop img{width:100%;height:100%;object-fit:cover}
+.hop.tl{-webkit-mask-image:radial-gradient(ellipse 70% 70% at 0% 0%,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse 70% 70% at 0% 0%,#000 35%,transparent 72%)}
+.hop.tr{-webkit-mask-image:radial-gradient(ellipse 70% 70% at 100% 0%,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse 70% 70% at 100% 0%,#000 35%,transparent 72%)}
+.hop.bl{-webkit-mask-image:radial-gradient(ellipse 70% 70% at 0% 100%,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse 70% 70% at 0% 100%,#000 35%,transparent 72%)}
+.hop.br{-webkit-mask-image:radial-gradient(ellipse 70% 70% at 100% 100%,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse 70% 70% at 100% 100%,#000 35%,transparent 72%)}
+.hop.band{-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(180deg,transparent,#000 35%,#000 65%,transparent)}
+
+/* ---------- шапка ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:40;transition:background-color .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(14,23,18,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line-d)}
+.nav .wrap{height:84px;display:flex;align-items:center;gap:36px;transition:height .3s}
+.nav.solid .wrap{height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:46px;height:46px;border-radius:50%}
+.brand b{display:block;font:800 21px/1 var(--serif);letter-spacing:.06em}
+.brand small{display:block;margin-top:5px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0 auto}
+.nav ul a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#ddd6c4;transition:color .2s}
+.nav ul a:hover{color:var(--gold-2)}
+.nav .icons{display:flex;gap:18px;font-size:22px}
+.nav .icons a{text-decoration:none;transition:color .2s}
+.nav .icons a:hover{color:var(--gold-2)}
+.burger{display:none;background:none;border:0;color:inherit;font-size:28px;cursor:pointer}
+/* язык: видно только выбранный, остальные в выпадающем списке */
+.lang{position:relative;flex:none}
+.lang-cur{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;background:none;border:1px solid rgba(201,161,74,.45);color:var(--light);font:600 13px/1 var(--sans);letter-spacing:.14em;cursor:pointer;transition:border-color .2s,background-color .2s}
+.lang-cur:hover,.lang.open .lang-cur{border-color:var(--gold-2);background:rgba(201,161,74,.1)}
+.lang-cur i{font-size:13px;transition:transform .25s}
+.lang.open .lang-cur i{transform:rotate(180deg)}
+.lang-list{position:absolute;right:0;top:calc(100% + 6px);min-width:150px;background:rgba(14,23,18,.98);border:1px solid var(--line-d);box-shadow:0 18px 40px -16px rgba(0,0,0,.8);padding:6px;display:none;z-index:5}
+.lang.open .lang-list{display:block;animation:langIn .2s var(--ease)}
+@keyframes langIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.lang-list button{display:flex;width:100%;align-items:baseline;gap:10px;background:none;border:0;color:var(--light);font:600 13px/1 var(--sans);letter-spacing:.14em;padding:12px 12px;cursor:pointer;text-align:left}
+.lang-list button small{font-weight:500;letter-spacing:0;font-size:13px;color:var(--muted)}
+.lang-list button:hover{background:rgba(201,161,74,.12);color:var(--gold-2)}
+.lang-list button[aria-current="true"]{display:none}
+.gate .lang{position:absolute;top:20px;right:20px}
+@media (max-width:520px){.nav .icons{display:none}.nav .lang{margin-left:auto}}
+
+/* ---------- первый экран ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate}
+.hero > .wrap{width:100%}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgba(9,15,11,.94) 0%,rgba(9,15,11,.76) 38%,rgba(9,15,11,.22) 75%,rgba(9,15,11,.08) 100%),
+  linear-gradient(0deg,rgba(14,23,18,1) 0%,rgba(14,23,18,0) 38%)}
+.hero-in{padding-top:150px;padding-bottom:56px}
+.hero h1{font-size:clamp(40px,5.6vw,76px);max-width:12ch}
+.hero .kicker{font-size:clamp(22px,2.4vw,32px);margin-top:14px;font-style:normal;text-transform:uppercase;font-weight:600;letter-spacing:.03em}
+.hero p{max-width:44ch;margin:26px 0 36px;font-size:17px;color:#dcd5c2}
+.hero .row{display:flex;gap:14px;flex-wrap:wrap}
+.hero-in > *{animation:rise .9s var(--ease) both}
+.hero-in > *:nth-child(2){animation-delay:.1s}.hero-in > *:nth-child(3){animation-delay:.2s}.hero-in > *:nth-child(4){animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.perks{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(201,161,74,.35);background:rgba(10,16,12,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);margin-bottom:56px}
+.perk{display:flex;gap:16px;align-items:flex-start;padding:24px 26px}
+.perk+.perk{border-left:1px solid rgba(201,161,74,.25)}
+.perk i{font-size:38px;color:var(--gold);flex:none;margin-top:2px}
+.perk b{display:block;font:600 13px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.perk span{font-size:14px;color:var(--muted);line-height:1.45}
+
+/* ---------- наше пиво: полка банок ---------- */
+.beer{background:var(--cream);color:var(--ink);padding:110px 0 100px;overflow:hidden}
+.beer-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:46px}
+.beer-head p{color:var(--ink-2);max-width:42ch;margin-top:16px}
+.beer .kicker{color:#9a7428}
+.shelf{overflow:hidden;padding:30px 0 40px;perspective:1100px;touch-action:pan-y}
+.track{display:flex;gap:22px;width:max-content;transform-style:preserve-3d;will-change:transform}
+.shelf::-webkit-scrollbar{display:none}
+.shelf-ctl{display:flex;justify-content:center;gap:14px;margin-top:6px}
+.shelf-ctl button{width:54px;height:54px;border-radius:50%;border:0;background:var(--ink);color:var(--cream);font-size:22px;display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 26px -12px rgba(32,29,23,.7);transition:transform .2s var(--ease),background-color .2s}
+.shelf-ctl button:hover{background:#3a3326;transform:scale(1.07)}
+.shelf-ctl button:active{transform:scale(.94)}
+.can{flex:0 0 auto;width:210px;scroll-snap-align:center;transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.can .pic{aspect-ratio:420/567;overflow:hidden;box-shadow:0 26px 40px -18px rgba(32,29,23,.55);transition:box-shadow .5s var(--ease)}
+.can img{width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none}
+.can:hover .pic{box-shadow:0 40px 50px -20px rgba(32,29,23,.7)}
+.can{cursor:pointer;position:relative}
+.can .more{position:absolute;left:50%;bottom:-14px;transform:translate(-50%,6px);opacity:0;white-space:nowrap;font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--cream);border:1px solid rgba(32,29,23,.25);padding:8px 12px;transition:opacity .3s,transform .3s var(--ease);pointer-events:none}
+.can:hover .more,.can:focus-visible .more{opacity:1;transform:translate(-50%,0)}
+@media (hover:none){.can .more{opacity:1;transform:translate(-50%,0)}}
+
+/* карточка пива */
+.beer-card{margin:auto;inset:0;position:fixed;border:0;padding:0;background:transparent;max-width:min(980px,calc(100vw - 32px));width:100%;max-height:calc(100dvh - 32px);color:var(--ink)}
+.beer-card::backdrop{background:rgba(8,10,8,.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.beer-card[open]{animation:cardIn .45s var(--ease)}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.bc{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--cream);box-shadow:0 40px 80px -30px rgba(0,0,0,.8);position:relative;max-height:calc(100dvh - 32px)}
+.bc-pic{background:#2a1d12;position:relative;overflow:hidden}
+.bc-pic img{width:100%;height:100%;object-fit:cover;display:block}
+.bc-body{padding:44px 44px 36px;overflow-y:auto;display:flex;flex-direction:column}
+.bc-brew{font:600 12px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#9a7428}
+.bc-body h3{font:700 clamp(30px,3.4vw,44px)/1.02 var(--serif);margin:10px 0 8px}
+.bc-style{font:500 italic 17px/1.35 var(--serif);color:var(--ink-2)}
+.bc-specs{display:flex;flex-wrap:wrap;gap:0;margin:22px 0 6px;border-block:1px solid rgba(32,29,23,.18)}
+.bc-specs div{padding:12px 18px 12px 0;margin-right:18px}
+.bc-specs div+div{padding-left:18px;border-left:1px solid rgba(32,29,23,.14)}
+.bc-specs b{display:block;font:700 22px/1 var(--serif)}
+.bc-specs span{font:500 11px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.bc-sec{margin-top:18px}
+.bc-sec h4{font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#9a7428;margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.bc-sec h4 i{font-size:17px}
+.bc-sec p{color:var(--ink-2);line-height:1.55;font-size:15.5px}
+.bc-note{margin-top:auto;padding-top:22px;font-size:13px;color:#7b7462}
+.bc-nav{display:flex;gap:10px;margin-top:18px}
+.bc-nav button,.bc-x{width:46px;height:46px;border-radius:50%;border:0;background:var(--ink);color:var(--cream);font-size:20px;display:grid;place-items:center;cursor:pointer;transition:transform .2s,background-color .2s}
+.bc-nav button:hover,.bc-x:hover{transform:scale(1.07);background:#3a3326}
+.bc-x{position:absolute;right:14px;top:14px;z-index:2}
+@media (max-width:700px){
+  .bc{grid-template-columns:1fr;overflow-y:auto}
+  .bc-pic{height:46vh}
+  .bc-pic img{object-position:50% 35%}
+  .bc-body{padding:26px 20px 24px;overflow:visible}
+  .bc-x{background:rgba(32,29,23,.85)}
+}
+.shelf-hint{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2)}
+.shelf-hint i{font-size:22px}
+
+/* ---------- разливное: меловая доска ---------- */
+.draft{padding:120px 0;overflow:hidden;isolation:isolate}
+.draft video,.draft .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.draft::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(10,15,12,.55)}
+.draft-grid{display:grid;grid-template-columns:.8fr 1.6fr;gap:56px;align-items:center}
+.draft-intro p{color:#e2dccb;max-width:34ch;margin:22px 0 28px}
+.draft-intro .legend{display:grid;gap:10px;font-size:14px;color:var(--muted)}
+.draft-intro .legend b{color:var(--gold-2);font-weight:600;display:inline-block;min-width:58px}
+.board{position:relative;padding:17px;background:#2a180b url(img/deco/wood.webp) 30% 40%/900px auto;box-shadow:0 34px 60px -22px rgba(0,0,0,.9),inset 0 2px 2px rgba(255,214,160,.22),inset 0 -3px 4px rgba(0,0,0,.65),inset 2px 0 2px rgba(255,214,160,.1),inset -2px 0 3px rgba(0,0,0,.5);color:#f1efe6;transform:rotate(-.6deg)}
+.slate{position:relative;padding:38px 42px 32px;background:#1b2a24 url(img/deco/chalk.jpg) center/cover;box-shadow:inset 0 0 50px rgba(0,0,0,.55),inset 0 3px 7px rgba(0,0,0,.75),inset 0 -1px 2px rgba(255,255,255,.05)}
+/* следы стёртого мела */
+.slate::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(38% 9% at 28% 30%,rgba(230,235,225,.07),transparent 72%),
+  radial-gradient(30% 7% at 70% 56%,rgba(230,235,225,.06),transparent 72%),
+  radial-gradient(46% 8% at 46% 84%,rgba(230,235,225,.05),transparent 72%),
+  radial-gradient(22% 12% at 88% 18%,rgba(230,235,225,.045),transparent 70%)}
+.slate::after{content:"";position:absolute;left:12%;right:30%;bottom:-17px;height:6px;background:linear-gradient(90deg,transparent,rgba(240,238,228,.5) 12%,rgba(240,238,228,.3) 60%,transparent);filter:blur(1.5px);pointer-events:none}
+.chalk{position:relative}
+.board h3{font:700 clamp(40px,4.4vw,58px)/1 var(--chalk-h);letter-spacing:.06em;text-align:center;text-transform:uppercase;text-shadow:0 0 1px rgba(255,255,255,.6),0 0 6px rgba(255,255,255,.15)}
+.board .sub{text-align:center;font:500 22px/1.2 var(--chalk);color:#e8e2a8;margin:4px 0 24px}
+.taps{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}
+.tap{display:flex;align-items:baseline;gap:8px;padding:5px 0;font:700 23px/1.2 var(--chalk);color:#f6f4ec;text-shadow:0 0 1px rgba(255,255,255,.5)}
+.tap .n{min-width:0}
+.tap .a{font-size:17px;font-weight:500;color:#d6e6c0;white-space:nowrap}
+.tap .d{flex:1;min-width:10px}
+.tap .p{white-space:nowrap;font-weight:700}
+.tap.own .n{color:#ffe08a}
+.tap.own .n::after{content:"";display:block;height:2px;margin-top:-3px;background:rgba(255,224,138,.6);border-radius:2px;transform:rotate(-1deg)}
+.board .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:22px;font:500 20px/1.2 var(--chalk);color:#d9d4c3}
+
+/* ---------- рюмочная: 3D-витрина настоек ---------- */
+.shot{background:#0b0b0a;padding:110px 0 90px;overflow:hidden;color:#f1f0e8}
+.shot::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 60%,rgba(238,240,90,.07),transparent 70%);pointer-events:none}
+.shot-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.shot h2{font:900 italic clamp(54px,8vw,110px)/.9 var(--serif);color:var(--acid);text-transform:lowercase;letter-spacing:-.01em}
+.shot-head p{color:#b9b8ad;max-width:36ch;margin-top:14px}
+.switch{display:flex;border:1px solid rgba(238,240,90,.4)}
+.switch button{background:none;border:0;color:#d8d7cc;font:600 13px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:14px 20px;cursor:pointer;transition:background-color .2s,color .2s}
+.switch button[aria-pressed="true"]{background:var(--acid);color:#111}
+.stage{position:relative;height:440px;margin-top:40px;perspective:1300px;touch-action:pan-y;user-select:none}
+.ring{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .6s var(--ease)}
+.glass{position:absolute;left:50%;top:20px;width:220px;height:330px;margin-left:-110px;transform-style:preserve-3d;transition:transform .7s var(--ease),opacity .5s,filter .5s;cursor:pointer;background:#222 url(img/deco/shots.jpg) center/cover;box-shadow:0 30px 50px -18px rgba(0,0,0,.9)}
+.glass::before{content:"";position:absolute;inset:0;background:var(--c);mix-blend-mode:color;opacity:.95}
+.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.85));}
+.glass b{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;font:800 21px/1.15 var(--serif);text-transform:none}
+.glass small{position:absolute;left:16px;top:14px;z-index:2;font:600 12px/1 var(--sans);letter-spacing:.14em;padding:6px 8px;background:rgba(0,0,0,.55);color:var(--acid)}
+.glass .shine{position:absolute;inset:0;z-index:1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%);opacity:0;transition:opacity .5s}
+.glass.on .shine{opacity:1}
+.shot-info{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px;max-width:620px;margin:20px auto 0}
+.shot-info .now{font:900 italic clamp(26px,3vw,38px)/1.1 var(--serif);color:var(--acid);text-align:center}
+.stage-wrap{position:relative;margin-top:40px}
+.stage-wrap .stage{margin-top:0}
+.arrow{flex:none;width:62px;height:62px;border:0;border-radius:50%;background:var(--acid);color:#111;font-size:26px;cursor:pointer;display:grid;place-items:center;box-shadow:0 14px 34px -10px rgba(238,240,90,.5);transition:transform .25s var(--ease),box-shadow .25s}
+.arrow:hover{transform:scale(1.08);box-shadow:0 18px 40px -8px rgba(238,240,90,.65)}
+.arrow:active{transform:scale(.95)}
+.arrow:disabled{opacity:.25;cursor:default;transform:none}
+
+.shot .price{text-align:center;margin-top:14px;color:#a9a89d;font-size:15px}
+.shot .price b{color:#f1f0e8}
+
+/* ---------- свои люди и стендап ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;background:var(--cream-2);color:var(--ink)}
+.split .photo{position:relative;min-height:560px;overflow:hidden}
+.split .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split .txt{padding:100px 64px;display:flex;flex-direction:column;justify-content:center}
+.split .kicker{color:#9a7428}
+.split p{color:var(--ink-2);margin:20px 0 30px;max-width:42ch}
+.standup{display:flex;gap:16px;align-items:flex-start;padding:20px 0;margin-bottom:30px;border-block:1px solid var(--line-l)}
+.standup i{font-size:30px;color:#9a7428}
+.standup b{display:block;font:700 15px/1.3 var(--serif);text-transform:uppercase;letter-spacing:.04em}
+.standup span{font-size:14px;color:var(--ink-2)}
+
+/* ---------- кухня ---------- */
+.food{padding:120px 0 110px;background:var(--forest-2);overflow:hidden}
+.food-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.food-head p{color:var(--muted);max-width:40ch}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line-d);margin-bottom:34px}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font:600 13px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:16px 18px;cursor:pointer;margin-bottom:-1px;transition:color .2s,border-color .2s}
+.tabs button:hover{color:var(--light)}
+.tabs button[aria-selected="true"]{color:var(--gold-2);border-color:var(--gold-2)}
+.tabs button sup{font-size:10px;margin-left:4px;color:var(--gold)}
+.plates{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-bottom:44px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent;min-height:340px}
+.plate{scroll-snap-align:start;margin:0;animation:plateIn .6s var(--ease) both}
+.plate:nth-child(2){animation-delay:.06s}.plate:nth-child(3){animation-delay:.12s}.plate:nth-child(4){animation-delay:.18s}.plate:nth-child(5){animation-delay:.24s}.plate:nth-child(6){animation-delay:.3s}
+@keyframes plateIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.plate .pic{aspect-ratio:3/4;overflow:hidden}
+.plate img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.plate:hover img{transform:scale(1.05)}
+.plate figcaption{margin-top:12px;font:600 16px/1.3 var(--serif)}
+.plate figcaption span{display:block;font:500 14px/1.3 var(--sans);color:var(--gold-2);margin-top:4px}
+.menu{display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
+.menu.wide{grid-template-columns:repeat(3,1fr);column-gap:44px}
+.dish{display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-d)}
+.dish div{flex:1;min-width:0}
+.dish .n{font-weight:500}
+.dish .s{display:block;font-size:13px;color:var(--muted);line-height:1.4;margin-top:3px}
+.dish .p{font-weight:600;color:var(--gold-2);white-space:nowrap}
+.menu-note{margin-top:26px;font-size:13px;color:var(--muted)}
+
+/* ---------- отзывы ---------- */
+.reviews{background:var(--cream);color:var(--ink);padding:110px 0}
+.rev-grid{display:grid;grid-template-columns:.8fr 2.2fr;gap:56px;align-items:start}
+.score{font:800 clamp(80px,9vw,120px)/.9 var(--serif)}
+.stars{color:#b8902f;font-size:22px;letter-spacing:4px;margin:14px 0 10px}
+.reviews .total{color:var(--ink-2);font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#f7f1e3;border:1px solid var(--line-l);padding:28px 26px;display:flex;flex-direction:column}
+.card .stars{font-size:15px;margin:0 0 16px}
+.card blockquote{font:600 italic 18px/1.45 var(--serif);flex:1}
+.card cite{font-style:normal;font-size:14px;color:var(--ink-2);margin-top:20px;display:flex;align-items:center;gap:10px}
+.card cite i{font-size:20px;color:#b8902f}
+.more-rev{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.more-rev > div{overflow:hidden}
+.more-rev .cards{padding-top:20px}
+.more-rev.open{grid-template-rows:1fr}
+.rev-actions{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}
+.toggle{width:58px;height:58px;border-radius:50%;border:1px solid var(--ink);background:none;color:var(--ink);font-size:24px;cursor:pointer;display:grid;place-items:center;transition:transform .5s var(--ease),background-color .2s}
+.toggle:hover{background:rgba(32,29,23,.06)}
+.toggle[aria-expanded="true"]{transform:rotate(180deg)}
+.rev-actions .label{font-size:14px;color:var(--ink-2)}
+.all-rev{display:none}
+.all-rev.show{display:inline-flex}
+
+/* ---------- инстаграм ---------- */
+.insta{display:grid;grid-template-columns:repeat(6,1fr)}
+.insta a{position:relative;aspect-ratio:1;overflow:hidden;display:block}
+.insta img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .4s}
+.insta a:hover img{transform:scale(1.07);filter:brightness(.75)}
+.insta .tag{aspect-ratio:auto;overflow:visible;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;padding:16px 26px;background:var(--forest);border:1px solid rgba(201,161,74,.6);font:600 14px/1 var(--sans);letter-spacing:.1em;text-decoration:none;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.insta .tag i{font-size:22px;color:var(--gold)}
+
+/* ---------- телеграм с хмелем ---------- */
+.tg{padding:96px 0;text-align:center;overflow:hidden;background:#0c140f}
+.tg .hop{top:0;bottom:0;width:38%}
+.tg .hop.l{left:0;-webkit-mask-image:linear-gradient(90deg,#000 20%,transparent);mask-image:linear-gradient(90deg,#000 20%,transparent)}
+.tg .hop.r{right:0;-webkit-mask-image:linear-gradient(270deg,#000 20%,transparent);mask-image:linear-gradient(270deg,#000 20%,transparent)}
+.tg .wrap{z-index:2}
+.tg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--forest));z-index:1;pointer-events:none}
+.tg::before{content:"";position:absolute;left:0;right:0;top:0;height:60px;background:linear-gradient(#0c140f,transparent);z-index:1;pointer-events:none}
+.tg h2{font-size:clamp(24px,2.8vw,34px)}
+.tg p{color:var(--muted);margin:12px auto 28px;max-width:46ch}
+
+/* ---------- адреса ---------- */
+.places{padding:110px 0 120px;overflow:hidden}
+.places .wrap{z-index:2}
+.places h2{margin-bottom:46px}
+.place-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.place{display:grid;grid-template-columns:200px 1fr;background:rgba(19,32,26,.92);border:1px solid var(--line-d)}
+.place img{width:100%;height:100%;object-fit:cover;min-height:280px}
+.place .in{padding:32px 30px}
+.place h3{font-size:26px;letter-spacing:.06em}
+.place .hours{display:inline-flex;gap:8px;align-items:center;margin:12px 0 18px;color:var(--gold-2);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.place p{color:#d8d1be;margin-bottom:4px}
+.place .tel{display:inline-block;margin:8px 0 22px;font-size:18px;text-decoration:none;border-bottom:1px solid rgba(201,161,74,.5)}
+.place .tel:hover{color:var(--gold-2)}
+
+/* ---------- подвал с хмелем ---------- */
+footer{position:relative;background:linear-gradient(var(--forest),#0a110d 220px);padding:120px 0 34px;font-size:14px;color:var(--muted);overflow:hidden}
+footer .hop.band{left:0;right:0;top:0;height:230px}
+footer .wrap{z-index:2}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot h5{font:600 12px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--light);margin-bottom:18px}
+.foot ul{list-style:none;display:grid;gap:9px}
+.foot a{text-decoration:none;transition:color .2s}
+.foot a:hover{color:var(--gold-2)}
+.foot .social{display:flex;gap:14px;margin-top:22px;font-size:24px;color:var(--light)}
+.warn{margin-top:50px;padding-top:24px;font-size:13px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(90deg,transparent,rgba(201,161,74,.35),transparent) top/100% 1px no-repeat}
+
+/* ---------- 21+ ---------- */
+.gate{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:rgba(8,12,10,.96)}
+.gate[hidden]{display:none}
+.gate-box{max-width:420px;text-align:center}
+.gate-box img{width:96px;height:96px;border-radius:50%;margin:0 auto 26px}
+.gate-box h2{font-size:clamp(28px,6vw,38px);margin-bottom:12px}
+.gate-box p{color:var(--muted);margin-bottom:30px}
+.gate-box .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.gate-box .no-msg{margin-top:22px;color:var(--gold-2)}
+
+/* появление */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-in > *,.plate{animation:none}
+  .glass,.ring,.can{transition:none}
+}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1100px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(14,23,18,.98);border-bottom:1px solid var(--line-d);padding:10px 32px 20px}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:14px 0;border-bottom:1px solid var(--line-d)}
+  .nav .icons{margin-left:auto}
+  .nav .wrap{gap:18px}
+  .burger{display:block}
+  .perks{grid-template-columns:1fr 1fr}
+  .perk:nth-child(3){border-left:0}
+  .perk:nth-child(n+3){border-top:1px solid rgba(201,161,74,.25)}
+  .draft-grid{grid-template-columns:1fr;gap:36px}
+  .split{grid-template-columns:1fr}
+  .split .photo{min-height:380px}
+  .rev-grid{grid-template-columns:1fr;gap:36px}
+  .menu.wide{grid-template-columns:1fr 1fr}
+  .place-grid{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:700px){
+  .wrap{padding:0 16px}
+  .nav .wrap{height:68px;gap:14px}
+  .brand img{width:40px;height:40px}
+  .brand b{font-size:18px}
+  .brand small{display:none}
+  .nav ul{padding:6px 16px 16px}
+  .hero{justify-content:flex-start}
+  .hero-in{padding-top:104px;padding-bottom:30px}
+  .hero::before{background:linear-gradient(0deg,rgba(14,23,18,1) 0%,rgba(9,15,11,.8) 45%,rgba(9,15,11,.5) 100%)}
+  .hero h1{font-size:clamp(34px,10vw,44px)}
+  .hero p{margin:18px 0 26px;font-size:16px}
+  .hero .row .btn{flex:1 1 100%}
+  .perks{margin-bottom:28px}
+  .perk{flex-direction:column;gap:8px;padding:16px 14px}
+  .perk i{font-size:30px}
+  .perk span{display:none}
+  .beer,.reviews{padding:80px 0}
+  .shelf{padding:20px 0 30px}
+  .track{gap:14px}
+  .can{width:150px}
+  .draft,.food,.shot{padding:80px 0}
+  .board{padding:28px 18px 26px;border-width:10px}
+  .taps{grid-template-columns:1fr}
+  .tap{font-size:21px}
+  .stage{height:360px}
+  .glass{width:170px;height:260px;margin-left:-85px}
+  .glass b{font-size:18px}
+  .arrow{width:48px;height:48px;font-size:20px}
+  .shot-info{gap:10px}
+  .split .txt{padding:64px 16px}
+  .menu,.menu.wide{grid-template-columns:1fr}
+  .tabs{flex-wrap:nowrap;overflow-x:auto}
+  .tabs button{padding:14px 12px;white-space:nowrap}
+  .cards{grid-template-columns:1fr}
+  .insta{grid-template-columns:repeat(3,1fr)}
+  .tg .hop{width:60%;opacity:.6}
+  .place{grid-template-columns:1fr}
+  .place img{min-height:0;aspect-ratio:16/10}
+  .foot{grid-template-columns:1fr}
+}
+
+/* живой фон: огни бара за полупрозрачными блоками */
+.bg-bokeh{position:fixed;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;filter:sepia(1) saturate(2.2) hue-rotate(-14deg) brightness(.75);opacity:.55;pointer-events:none}
+.flyer{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 30px 30px rgba(0,0,0,.55));will-change:transform}
+.flyer img{width:100%;display:block}
+.shot{background:rgba(8,8,7,.84)}
+.food{background:rgba(17,29,23,.86)}
+.tg{background:rgba(10,17,13,.8)}
+.places{background:rgba(14,23,18,.55)}
+footer{background:linear-gradient(rgba(14,23,18,.6),#0a110d 260px)}
+.reviews,.beer,.split{overflow:hidden}
+html.gs .reveal{opacity:1;transform:none;transition:none}
+</style>
+</head>
+<body>
+<video class="bg-bokeh" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="video/bokeh.mp4" type="video/mp4"></video>
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" hidden>
+  <div class="lang" data-lang>
+      <button type="button" class="lang-cur" aria-haspopup="true" aria-expanded="false" aria-label="Язык"><span>RU</span><i class="ph ph-caret-down"></i></button>
+      <div class="lang-list" role="menu">
+        <button type="button" role="menuitem" data-l="ru">RU <small>Русский</small></button>
+        <button type="button" role="menuitem" data-l="uz">UZ <small>O‘zbekcha</small></button>
+        <button type="button" role="menuitem" data-l="en">EN <small>English</small></button>
+      </div>
+    </div>
+  <div class="gate-box">
+    <img src="img/logo.jpg" alt="">
+    <h2 id="gate-title">Тебе уже есть 21?</h2>
+    <p>Здесь наливают только взрослым.</p>
+    <div class="row">
+      <button class="btn btn-gold" id="gate-yes">Да, наливай</button>
+      <button class="btn btn-line" id="gate-no">Нет</button>
+    </div>
+    <p class="no-msg" id="gate-msg" hidden>Тогда ждём тебя, когда исполнится 21.</p>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Beerkovich, наверх">
+      <img src="img/logo.jpg" alt="">
+      <span><b>BEERKOVICH</b><small>Алкомаркет, бар, рюмочная</small></span>
+    </a>
+    <ul id="menuNav">
+      <li><a href="#beer">Крафт</a></li>
+      <li><a href="#draft">На кранах</a></li>
+      <li><a href="#shot">Настойки</a></li>
+      <li><a href="#food">Кухня</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#places">Где мы</a></li>
+    </ul>
+    <div class="icons">
+      <a href="https://t.me/beerkovichuz" target="_blank" rel="noopener" aria-label="Telegram"><i class="ph ph-telegram-logo"></i></a>
+      <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+    </div>
+    <div class="lang" data-lang>
+      <button type="button" class="lang-cur" aria-haspopup="true" aria-expanded="false" aria-label="Язык"><span>RU</span><i class="ph ph-caret-down"></i></button>
+      <div class="lang-list" role="menu">
+        <button type="button" role="menuitem" data-l="ru">RU <small>Русский</small></button>
+        <button type="button" role="menuitem" data-l="uz">UZ <small>O‘zbekcha</small></button>
+        <button type="button" role="menuitem" data-l="en">EN <small>English</small></button>
+      </div>
+    </div>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="menuNav"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1. Первый экран: бесшовная сцена у кранов -->
+  <section class="hero">
+    <img class="poster" src="img/hero-poster.jpg?v=5" alt="">
+    <video autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg?v=5" aria-hidden="true">
+      <source src="video/hero.mp4?v=5" type="video/mp4">
+    </video>
+    <div class="wrap hero-in">
+      <h1>Разливное, крафт и настойки</h1>
+      <span class="kicker">Круглосуточно в центре Ташкента</span>
+      <p>20 кранов, 250 видов крафта и своё фирменное пиво. Заходи посидеть или закажи доставку, привезём даже ночью.</p>
+      <div class="row">
+        <a class="btn btn-gold" href="#draft">Что на кранах <i class="ph ph-arrow-right"></i></a>
+        <a class="btn btn-line" href="https://t.me/beerkovichuz" target="_blank" rel="noopener">Закажи доставку</a>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="perks">
+        <div class="perk"><i class="ph ph-beer-bottle"></i><div><b>250 видов крафта</b><span>Банки и бутылки со всего мира</span></div></div>
+        <div class="perk"><i class="ph ph-beer-stein"></i><div><b>Своё пиво</b><span>Четыре сорта BEERKOVICH на кране</span></div></div>
+        <div class="perk"><i class="ph ph-drop"></i><div><b>42 настойки</b><span>Мягкие 20° и крепкие 40°, по 50 мл</span></div></div>
+        <div class="perk"><i class="ph ph-moped"></i><div><b>Доставка</b><span>Пиво и закуски к двери, круглосуточно</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Наше пиво: полка, которую можно тянуть мышкой -->
+  <section class="beer" id="beer">
+    <div class="wrap">
+      <div class="beer-head reveal">
+        <div>
+          <h2>Наше пиво</h2>
+          <span class="kicker">Прямо с полки, без фотошопа</span>
+          <p>Саур, гозе, IPA, APA, нитро стаут и сидр, которого больше нигде нет. Это малая часть, остальное в холодильниках.</p>
+        </div>
+        <span class="shelf-hint"><i class="ph ph-hand-pointing"></i>Жми на банку, чтобы почитать о пиве</span>
+      </div>
+    </div>
+    <div class="shelf" id="shelf" aria-label="Банки и бутылки крафта"></div>
+    <div class="shelf-ctl">
+      <button type="button" id="shelfBack" aria-label="Быстрее назад"><i class="ph-bold ph-caret-double-left"></i></button>
+      <button type="button" id="shelfFwd" aria-label="Быстрее вперёд"><i class="ph-bold ph-caret-double-right"></i></button>
+    </div>
+  </section>
+
+  <dialog class="beer-card" id="beerCard" aria-label="О пиве">
+    <div class="bc">
+      <button class="bc-x" type="button" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button>
+      <div class="bc-pic"><img id="bcImg" src="" alt=""></div>
+      <div class="bc-body">
+        <span class="bc-brew" id="bcBrew"></span>
+        <h3 id="bcName"></h3>
+        <p class="bc-style" id="bcStyle"></p>
+        <div class="bc-specs" id="bcSpecs"></div>
+        <div class="bc-sec"><h4><i class="ph ph-drop"></i>Какое на вкус</h4><p id="bcTaste"></p></div>
+        <div class="bc-sec"><h4><i class="ph ph-beer-stein"></i>Как пить</h4><p id="bcTip"></p></div>
+        <p class="bc-note">Данные с этикетки и от пивоварни. Наличие и цену уточняй в магазине, полка обновляется.</p>
+        <div class="bc-nav"><button type="button" id="bcPrev" aria-label="Предыдущее пиво"><i class="ph ph-caret-left"></i></button><button type="button" id="bcNext" aria-label="Следующее пиво"><i class="ph ph-caret-right"></i></button></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 3. Разливное: меловая доска поверх живых кранов -->
+  <section class="draft" id="draft">
+    <div class="flyer" data-from="left" data-rot="-14" data-drift="60" style="left:-46px;bottom:-90px;width:160px"><img src="img/fly/can-a.webp" alt=""></div>
+    <img class="poster" src="img/taps-poster.jpg" alt="" loading="lazy">
+    <video muted loop playsinline preload="none" data-lazy poster="img/taps-poster.jpg" aria-hidden="true">
+      <source src="video/taps.mp4" type="video/mp4">
+    </video>
+    <div class="hop tl" style="left:0;top:0;width:340px;height:340px"><img src="img/deco/hops-26835289.webp" alt="" loading="lazy"></div>
+    <div class="wrap draft-grid">
+      <div class="draft-intro reveal">
+        <h2>На кранах</h2>
+        <span class="kicker">20 сортов, цена за литр</span>
+        <p>Четыре наших фирменных, российский и казахский крафт, эли и сидр. Наливаем в литровую тару, с собой или за столик.</p>
+        <div class="legend">
+          <span><b>Ф</b>фильтрованное</span>
+          <span><b>Н/Ф</b>нефильтрованное</span>
+          <span><b>Эль</b>тёплое брожение: фрукты, пряности</span>
+          <span><b>Лагер</b>холодное брожение: чисто и сухо</span>
+        </div>
+      </div>
+      <div class="board" id="board"><div class="slate"><div class="chalk">
+        <h3>Сегодня наливаем</h3>
+        <p class="sub">цена за 1 литр</p>
+        <div class="taps" id="taps"></div>
+        <div class="foot"><span>* наши фирменные</span><span>с собой или за столиком</span></div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- 4. Рюмочная: 3D-витрина настоек -->
+  <section class="shot" id="shot">
+    <div class="wrap">
+      <div class="shot-head reveal">
+        <div>
+          <h2>настойки</h2>
+          <p>42 вкуса на местном дистилляте. Веди мышкой по рюмкам или листай пальцем.</p>
+        </div>
+        <div class="switch" role="group" aria-label="Крепость">
+          <button type="button" aria-pressed="true" data-set="soft">Мягкие 20°</button>
+          <button type="button" aria-pressed="false" data-set="strong">Крепкие 40°</button>
+        </div>
+      </div>
+      <div class="stage-wrap">
+        <div class="stage" id="stage" aria-roledescription="карусель"><div class="ring" id="ring"></div></div>
+      </div>
+      <div class="shot-info">
+        <button class="arrow" id="prev" aria-label="Предыдущая настойка"><i class="ph-bold ph-caret-left"></i></button>
+        <span class="now" id="now" aria-live="polite"></span>
+        <button class="arrow" id="next" aria-label="Следующая настойка"><i class="ph-bold ph-caret-right"></i></button>
+      </div>
+      <p class="price">Шот 50 мл <b>30 000 сум</b>. Под крепкое есть бутерброды и маринады.</p>
+    </div>
+  </section>
+
+  <!-- 5. Свои люди и стендап -->
+  <section class="split">
+    <div class="photo"><img src="img/atm-022.webp" alt="Стендап на сцене Beerkovich AVENUE, неоновая вывеска Stand Up на кирпичной стене" loading="lazy"></div>
+    <div class="txt reveal">
+      <h2>Свои люди</h2>
+      <span class="kicker">Нальют, посоветуют, рассмешат</span>
+      <p>Ребята за стойкой знают каждый кран и подберут сорт под твоё настроение. А на AVENUE по вечерам ещё и смешно.</p>
+      <div class="standup">
+        <i class="ph ph-microphone-stage"></i>
+        <div><b>Stand Up House на AVENUE</b><span>Вечера со StandUpCentralAsia. Афиша и билеты в нашем Telegram.</span></div>
+      </div>
+      <a class="btn btn-dark" href="https://t.me/beerkovichuz" target="_blank" rel="noopener" style="align-self:flex-start">Глянь афишу <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- 6. Кухня: фото меняются вместе с разделом -->
+  <section class="food" id="food">
+    <div class="flyer" data-from="right" data-rot="12" data-drift="70" style="right:-50px;bottom:-70px;width:140px"><img src="img/fly/can-b.webp" alt=""></div>
+    <div class="hop tr" style="right:0;top:0;width:420px;height:380px"><img src="img/deco/hops-26835777.webp" alt="" loading="lazy"></div>
+    <div class="wrap">
+      <div class="food-head reveal">
+        <div>
+          <h2>Под пиво</h2>
+          <span class="kicker">Кухня до 4 утра</span>
+        </div>
+        <p>Выбери раздел, и над меню появятся блюда из него. Хочешь домой? Привезём вместе с пивом.</p>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="plates" id="plates"></div>
+      <div class="menu" id="menu" role="tabpanel" aria-live="polite"></div>
+      <p class="menu-note" id="menuNote"></p>
+    </div>
+  </section>
+
+  <!-- 7. Отзывы -->
+  <section class="reviews" id="reviews">
+    <div class="flyer" data-from="right" data-rot="16" data-drift="70" style="right:-26px;bottom:-110px;width:130px"><img src="img/fly/can-e.webp" alt=""></div>
+    <div class="wrap">
+      <div class="rev-grid">
+        <div class="reveal">
+          <h2>Что говорят</h2>
+          <span class="kicker" style="color:#9a7428">Яндекс Карты</span>
+          <div class="score" style="margin-top:26px">5,0</div>
+          <div class="stars" aria-label="5 из 5">★★★★★</div>
+          <p class="total">1 323 оценки у двух баров</p>
+        </div>
+        <div>
+          <div class="cards reveal" id="cards1"></div>
+          <div class="more-rev" id="moreRev"><div><div class="cards" id="cards2"></div></div></div>
+          <div class="rev-actions">
+            <button class="toggle" id="revToggle" aria-expanded="false" aria-controls="moreRev" aria-label="Покажи ещё отзывы"><i class="ph ph-caret-down"></i></button>
+            <span class="label" id="revLabel">Ещё 6 отзывов</span>
+            <a class="btn btn-dark all-rev" id="allRev" href="https://yandex.uz/maps/org/beerkovich_uno/195812870976/reviews/" target="_blank" rel="noopener">Все отзывы <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Инстаграм -->
+  <section class="insta" aria-label="Фото из нашего Instagram">
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/bar-00.webp" alt="Бармен у полок с алкоголем" loading="lazy"></a>
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/prod-25.webp" alt="Гости чокаются бутылками" loading="lazy"></a>
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/atm-003.webp" alt="Вечер стендапа в баре" loading="lazy"></a>
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/bar-12.webp" alt="Гость у холодильника с крафтом" loading="lazy"></a>
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/prod-03.webp" alt="Руки с бутылками пива" loading="lazy"></a>
+    <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><img src="img/prod-23.webp" alt="Банка Leffe на фоне полок с крафтом" loading="lazy"></a>
+    <a class="tag" href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener"><i class="ph ph-instagram-logo"></i>@beerkovich.uz</a>
+  </section>
+
+  <!-- 9. Telegram между двумя лозами хмеля -->
+  <section class="tg">
+    <div class="hop l"><img src="img/deco/hops-26835766.webp" alt="" loading="lazy"></div>
+    <div class="hop r"><img src="img/deco/hops-26835289.webp" alt="" loading="lazy"></div>
+    <div class="wrap reveal">
+      <h2>Стань своим в Beerkovich</h2>
+      <p>Новинки крафта, афиша стендапа и акции. Там же принимаем заказы на доставку.</p>
+      <a class="btn btn-gold" href="https://t.me/beerkovichuz" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> Подпишись</a>
+    </div>
+  </section>
+
+  <!-- 10. Адреса -->
+  <section class="places" id="places">
+    <div class="hop bl" style="left:0;bottom:0;width:460px;height:420px"><img src="img/deco/hops-14421847.webp" alt="" loading="lazy"></div>
+    <div class="wrap">
+      <h2 class="reveal">Где налить</h2>
+      <div class="place-grid reveal">
+        <div class="place">
+          <img src="img/uno.webp" alt="Вход в Beerkovich UNO вечером" loading="lazy">
+          <div class="in">
+            <h3>UNO</h3>
+            <span class="hours"><i class="ph ph-clock"></i>Круглосуточно</span>
+            <p>ул. Тараса Шевченко, 8</p>
+            <a class="tel" href="tel:+998911350040">+998 91 135 00 40</a><br>
+            <a class="btn btn-line" href="https://yandex.uz/maps/org/beerkovich_uno/195812870976/" target="_blank" rel="noopener">Как добраться <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="place">
+          <img src="img/atm-020.webp" alt="Гости вечером в Beerkovich AVENUE" loading="lazy">
+          <div class="in">
+            <h3>AVENUE</h3>
+            <span class="hours"><i class="ph ph-clock"></i>12:00 - 00:00</span>
+            <p>ул. Мирабад, 9А</p>
+            <p style="font-size:14px;color:var(--muted)">Ориентир: ЖК Mirabad Avenue</p>
+            <a class="tel" href="tel:+998332720040">+998 33 272 00 40</a><br>
+            <a class="btn btn-line" href="https://yandex.uz/maps/org/beerkovich_avenue/242298892641/" target="_blank" rel="noopener">Как добраться <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="hop band"><img src="img/deco/hops-26835777.webp" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><img src="img/logo.jpg" alt=""><span><b style="color:var(--light)">BEERKOVICH</b><small>Алкомаркет, бар, рюмочная</small></span></a>
+        <div class="social">
+          <a href="https://t.me/beerkovichuz" target="_blank" rel="noopener" aria-label="Telegram"><i class="ph ph-telegram-logo"></i></a>
+          <a href="https://www.instagram.com/beerkovich.uz/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+      </div>
+      <div><h5>Бар</h5><ul><li><a href="#draft">На кранах</a></li><li><a href="#beer">Крафт</a></li><li><a href="#shot">Настойки</a></li><li><a href="#food">Кухня</a></li></ul></div>
+      <div><h5>UNO, 24/7</h5><ul><li>ул. Тараса Шевченко, 8</li><li><a href="tel:+998911350040">+998 91 135 00 40</a></li></ul></div>
+      <div><h5>AVENUE</h5><ul><li>ул. Мирабад, 9А</li><li>12:00 - 00:00</li><li><a href="tel:+998332720040">+998 33 272 00 40</a></li></ul></div>
+    </div>
+    <div class="warn"><span>Алкоголь продаём только с 21 года.</span><span>Чрезмерное употребление алкоголя вредит твоему здоровью.</span></div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- языки: RU / UZ / EN ---------- */
+  var LANG='ru', MAP={uz:{},en:{}}, hooks=[];
+  (window.BK_DICT||[]).forEach(function(r){ MAP.uz[r[0]]=r[1]; MAP.en[r[0]]=r[2]; });
+  try{ LANG=localStorage.getItem('bk-lang')||''; }catch(e){}
+  var qs=(location.search.match(/[?&]lang=(ru|uz|en)/)||[])[1]; if(qs) LANG=qs;
+  if(!/^(ru|uz|en)$/.test(LANG)){ var nl=(navigator.language||'ru').slice(0,2); LANG=nl==='uz'?'uz':(nl==='en'?'en':'ru'); }
+  function T(ru){
+    if(LANG==='ru'||!ru) return ru;
+    var v=MAP[LANG][ru]; if(v!=null) return v;
+    var m;
+    if((m=ru.match(/^«([\s\S]+)»$/))){ var t=T(m[1]); return t===m[1]?ru:(LANG==='en'?'“'+t+'”':'«'+t+'»'); }
+    if((m=ru.match(/^([\d\s\u00a0\u202f]+) сум$/))) return LANG==='en'?m[1].replace(/[\s\u00a0\u202f]+/g,',')+' UZS':m[1]+' so‘m';
+    if(/^\d[\d\s\u00a0\u202f]*$/.test(ru)) return LANG==='en'?ru.replace(/[\s\u00a0\u202f]+/g,','):ru;
+    if(/^[\d,]+%?$/.test(ru)) return LANG==='en'?ru.replace(',','.'):ru;
+    if(/^(Н\/Ф|Ф)(\s|,|$)/.test(ru)){                       /* обозначения на доске */
+      var x=ru.replace('Н/Ф',MAP[LANG]['Н/Ф']).replace(/^Ф/,'F').replace('Казахстан',MAP[LANG]['Казахстан']);
+      return LANG==='en'?x.replace(/(\d),(\d)/g,'$1.$2'):x;
+    }
+    return ru;
+  }
+  window.BK_T=T;
+  var ATTR=['alt','aria-label','title'];
+  function tr(root){
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){ var p=n.parentNode&&n.parentNode.nodeName; return p==='SCRIPT'||p==='STYLE'?2:1; }}), n;
+    while((n=w.nextNode())){
+      if(n._ru==null){ if(!/[А-Яа-яЁё\d]/.test(n.nodeValue)) continue; n._ru=n.nodeValue; }
+      var o=n._ru, k=o.replace(/\s+/g,' ').trim(); if(!k) continue;
+      var lead=o.match(/^\s*/)[0], trail=o.match(/\s*$/)[0];
+      var v=lead.replace(/\s+/g,' ')+T(k)+trail.replace(/\s+/g,' ');
+      if(n.nodeValue!==v) n.nodeValue=v;
+    }
+    var els=root.querySelectorAll?root.querySelectorAll('[alt],[aria-label],[title]'):[];
+    [].forEach.call(els,function(el){
+      el._ra=el._ra||{};
+      ATTR.forEach(function(a){ if(!el.hasAttribute(a)) return; if(el._ra[a]==null) el._ra[a]=el.getAttribute(a); var v=T(el._ra[a]); if(el.getAttribute(a)!==v) el.setAttribute(a,v); });
+    });
+  }
+  var TITLE=document.title, DESC=(document.querySelector('meta[name="description"]')||{}).content;
+  function setLang(l,save){
+    LANG=l; document.documentElement.lang=l;
+    if(save){ try{ localStorage.setItem('bk-lang',l); }catch(e){} }
+    document.title=T(TITLE); var md=document.querySelector('meta[name="description"]'); if(md&&DESC) md.content=T(DESC);
+    tr(document.body);
+    document.querySelectorAll('[data-lang]').forEach(function(box){
+      box.querySelector('.lang-cur span').textContent=l.toUpperCase();
+      box.querySelectorAll('[data-l]').forEach(function(b){ b.setAttribute('aria-current',b.dataset.l===l); });
+    });
+    hooks.forEach(function(f){ f(); });
+  }
+  document.querySelectorAll('[data-lang]').forEach(function(box){
+    var cur=box.querySelector('.lang-cur');
+    cur.onclick=function(e){ e.stopPropagation(); var o=box.classList.toggle('open'); cur.setAttribute('aria-expanded',o); };
+    box.querySelectorAll('[data-l]').forEach(function(b){ b.onclick=function(){ box.classList.remove('open'); cur.setAttribute('aria-expanded',false); setLang(b.dataset.l,true); }; });
+  });
+  document.addEventListener('click',function(){ document.querySelectorAll('[data-lang].open').forEach(function(b){ b.classList.remove('open'); b.querySelector('.lang-cur').setAttribute('aria-expanded',false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') document.querySelectorAll('[data-lang].open').forEach(function(b){ b.classList.remove('open'); }); });
+
+  function sum(n){ return n.toLocaleString('ru-RU'); }
+
+  /* 21+ */
+  var gate=document.getElementById('gate'), ok=false;
+  try{ ok=localStorage.getItem('bk-age')==='1'; }catch(e){}
+  if(!ok){ gate.hidden=false; document.body.style.overflow='hidden'; }
+  document.getElementById('gate-yes').onclick=function(){
+    try{ localStorage.setItem('bk-age','1'); }catch(e){}
+    gate.hidden=true; document.body.style.overflow='';
+  };
+  document.getElementById('gate-no').onclick=function(){ document.getElementById('gate-msg').hidden=false; };
+
+  /* шапка и бургер */
+  var nav=document.getElementById('nav');
+  new IntersectionObserver(function(e){ nav.classList.toggle('solid',!e[0].isIntersecting); },{rootMargin:'-90px 0px 0px 0px'})
+    .observe(document.querySelector('.hero-in'));
+  var burger=document.getElementById('burger'), list=document.getElementById('menuNav');
+  burger.onclick=function(){ var o=list.classList.toggle('open'); burger.setAttribute('aria-expanded',o); };
+  list.addEventListener('click',function(e){ if(e.target.tagName==='A'){ list.classList.remove('open'); burger.setAttribute('aria-expanded',false);} });
+
+  /* видео у кранов в разливном включается, только когда блок виден */
+  var lazyV=document.querySelector('video[data-lazy]');
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){ if(lazyV.preload==='none'){ lazyV.preload='auto'; lazyV.load(); } lazyV.play().catch(function(){}); }
+    else lazyV.pause();
+  },{rootMargin:'200px'}).observe(lazyV);
+  if(reduce){ document.querySelectorAll('video').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); }); }
+
+  /* появление */
+  var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} }); },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---------- полка банок: тянуть мышкой, банки наклоняются ---------- */
+  /* [фото, пивоварня, название, стиль, [крепость, горечь, ЭНС, объём], вкус, как пить] - по этикеткам и данным пивоварен */
+  var BEER=[
+    ['03','Бельгия','Belgian Kriek','Вишнёвое пиво, бельгийский крик',['3,5%','','','0,33 л'],'Сладко-кислая вишня, мягкое и почти без горечи. Больше похоже на вишнёвый сок для взрослых, чем на пиво.','Охлади до 6-8°, налей в бокал-тюльпан. Хорошо с сыром, шоколадом и десертами.'],
+    ['04','CHIBIS Brewery','#Летубыть','Session IPA на хмеле Citra и El Dorado',['4,5%','','11,5',''],'Лёгкое и сухое: цитрус, тропические фрукты, горечь мягкая. Сессионное, то есть можно не одно.','Пей холодным, прямо из банки или в пинту. К бургерам, курице и жаре.'],
+    ['05','Big Pot × Brewlok','Донская русалка','Смузи саур эль с клубникой, земляникой и белым персиком',['6%','','',''],'Густое, как смузи: спелая клубника, земляника и персик, сладость с кислинкой.','Это пиво-десерт. Не перехолаживай, иначе потеряется ягода. Пей из бокала, чтобы видеть цвет.'],
+    ['06','Brewlok','Леший','Умеренно сухой India Pale Ale с хмелевой парой Amarillo и Citra',['','','',''],'Апельсиновая цедра и грейпфрут от Amarillo, тропики от Citra, сухой горьковатый финиш.','К острому, жареному мясу и чипсам. Горечь IPA отлично режет жир.'],
+    ['07','Augustine Brewery','Вишнёвый слёрм','Sour Ale с вишней',['4,8%','','',''],'Яркая вишня и бодрая кислинка, как вишнёвый лимонад. Название в честь газировки из «Футурамы».','Охлади посильнее. Освежает в жару, хорошо идёт с солёными снеками.'],
+    ['09','Brewmen Brewery','Tomato Soul','Томатный гозе, Sangrita edition',['5,5%','','16','0,45 л'],'Томат, соль, перчинка и цитрус, как мексиканская сангрита. Солоноватое и пряное.','Пивоварня советует подачу 12° в бокале Теку. К вяленой рыбе, креветкам и морепродуктам.'],
+    ['10','Zagovor Brewery','Community','Small New England IPA',['3,5%','25 IBU','11','0,45 л'],'Мутное и сочное, но лёгкое: персик, цитрус, мягкая горечь. Почти без алкоголя в ощущениях.','Когда хочется вкусно и надолго. Отлично к салатам и лёгкой закуске.'],
+    ['12','Salden\'s Brewery','Grapefruit Double IPA','Двойной IPA, сварен с грейпфрутовой цедрой, хмель Cascade и Chinook',['7%','100 IBU','',''],'Мощная горечь, грейпфрут, хвоя и цитрус. Для тех, кто любит, когда пиво кусается.','Не холоди сильно, 8-10°. К острому, стейку, выдержанному сыру.'],
+    ['13','4BREWERS','Острая зависимость','Острый томатный гозе',['','','',''],'Томат, соль и острый перец. Сначала свежо, потом приятно жжёт.','Как пивная «Кровавая Мэри». К рыбе, шашлыку, под крепкое вместо запивки.'],
+    ['14','4BREWERS','Giraffe Milk','Саур эль «Фруктовое драже»',['','','',''],'Конфетный саур: вкус разноцветного фруктового драже, умеренно кисло и умеренно сладко.','Для тех, кто «не любит пиво». Пей охлаждённым, как десерт.'],
+    ['16','AF Brew','Мозаик ИПА','IPA на хмеле Mosaic',['','','',''],'Mosaic даёт ягоды, манго, цитрус и лёгкую хвою. Сочно, с выраженной горечью.','К бургерам, пицце и всему жареному.'],
+    ['17','','Ceremony','DDH Jasmine Oat IPA: двойное сухое охмеление, овёс и жасмин',['6,9%','','',''],'Мягкое и шелковистое от овса, цветочный жасмин и сочный хмель.','Пей медленно из бокала, чтобы раскрылся аромат. Хорошо к азиатской кухне.'],
+    ['18','Red Button × Silver Hoof','Aurora Tropicalis','Пиво с манго и личи',['6%','','','0,45 л'],'Тропический коктейль: сочное манго и цветочное личи.','Охлади и наливай в бокал. Под летний вечер и фрукты.'],
+    ['19','','Русалка','Sour Ale, кислый эль с чёрной смородиной',['','','',''],'Терпкая чёрная смородина и чистая кислинка, ягодное и освежающее.','Хорошо к сырам и мясным нарезкам, отлично утоляет жажду.'],
+    ['20','4BREWERS','Рассол дико зол','Гозе по мотивам огуречного рассола',['','','',''],'Огуречный рассол, укроп, соль и кислинка. Звучит странно, пьётся легко.','Лучшая запивка к крепкому, особенно к водке и настойкам. К солениям и селёдке.'],
+    ['22','4BREWERS','Аддикция','Crystal tomato gose, прозрачный томатный гозе',['','','',''],'Вкус томата без мутности: чистое, солоноватое, с кислинкой.','К морепродуктам, рыбе и сыру. Пей холодным.'],
+    ['23','4BREWERS','Поцелуй в самое сердце','Двойной New England IPA на хмеле Citra, Strata, El Dorado и Lupomax',['','','',''],'Густой и сочный: маракуйя, цитрус, клубника от Strata, мягкая горечь.','Не холоди сильно и пей из бокала. Это крепкий DIPA, не спеши.'],
+    ['24','Salden\'s Brewery','American IPA 4C','Американский IPA на четырёх «C»: Citra, Columbus, Chinook, Centennial',['7%','60 IBU','16%',''],'Классика американского IPA: грейпфрут, хвоя, смола и плотная горечь.','К бургерам, крыльям и острой кухне.'],
+    ['25','4BREWERS','Кислота','Саур эль с грейпфрутом',['','','',''],'Кислый и бодрый, с горчинкой грейпфрутовой цедры.','Пей холодным в жару. Хорошо перед едой, разгоняет аппетит.'],
+    ['26','Пивоварня Августин','Новозеландский ИПА','IPA на новозеландском хмеле',['','','',''],'Новозеландский хмель даёт белое вино, крыжовник, лайм и тропики.','К рыбе, курице и салатам.'],
+    ['28','CHIBIS Brewery','Солнышко','New England IPA на хмеле Motueka',['6,4%','','16,4',''],'Мутное и сочное: лайм, лимонная цедра и тропики от новозеландского Motueka.','Пей свежим, NEIPA не любит ждать. Из бокала, чтобы был аромат.'],
+    ['29','Jaws Brewery','Грёзы','Ягодное пиво от уральской пивоварни Jaws',['','','',''],'Сладкое, чуть кисловатое и очень питкое, с ягодами.','Пей охлаждённым, как лёгкий ягодный напиток.'],
+    ['30','Zagovor Brewery','Slow & Trve','Lupulin edition New England APA',['4,8%','35 IBU','14','0,45 л'],'Мягкий и сочный пейл эль на люпулиновом порошке: яркий аромат хмеля, лёгкое тело.','Универсальное: к любой закуске и на весь вечер.']
+  ];
+  var shelf=document.getElementById('shelf');
+  shelf.innerHTML='<div class="track" id="track">'+[0,1,2].map(function(k){ return BEER.map(function(b,i){ return '<div class="can" role="button" tabindex="'+(k===1?0:-1)+'"'+(k===1?'':' aria-hidden="true"')+' data-i="'+i+'" aria-label="'+b[2]+'"><div class="pic"><img src="img/cans/c'+b[0]+'.webp" alt="'+b[2]+'" loading="lazy" draggable="false"></div><span class="more">Глянь</span></div>'; }).join(''); }).join('')+'</div>';
+  var track=document.getElementById('track'), canEls=[].slice.call(track.children), offs=[], canW=0;
+  /* полка едет сама (сдвиг через transform: плавно, без рывков);
+     под мышкой мягко останавливается, стрелки разгоняют, потом скорость возвращается */
+  var BASE=34, vel=BASE, pos=0, last=0, hold=false, run1=1, runT=1, setW=0, moved=0;
+  function measure(){
+    var gap=parseFloat(getComputedStyle(track).columnGap)||22;
+    setW=(track.scrollWidth+gap)/3; if(!pos) pos=setW;
+    offs=canEls.map(function(el){ return el.offsetLeft; }); canW=canEls[0].offsetWidth;
+  }
+  function tiltCans(){
+    if(reduce) return;
+    var half=shelf.clientWidth/2;
+    for(var i=0;i<canEls.length;i++){
+      var d=Math.max(-1,Math.min(1,(offs[i]+canW/2-pos-half)/half));
+      if(Math.abs(d)>=1&&canEls[i]._d===d) continue;
+      canEls[i]._d=d;
+      canEls[i].style.transform='rotateY('+(-d*28)+'deg) translateZ('+((1-Math.abs(d))*40)+'px)';
+    }
+  }
+  function run(t){
+    var dt=last?Math.min(.05,(t-last)/1000):0; last=t;
+    if(!setW) measure();
+    vel+=(BASE-vel)*Math.min(1,dt*1.6);
+    run1+=(runT-run1)*Math.min(1,dt*7);                  /* плавная остановка и разгон */
+    if(!hold) pos+=vel*run1*dt;
+    if(pos>=setW*2) pos-=setW; if(pos<setW) pos+=setW;
+    track.style.transform='translate3d('+(-pos)+'px,0,0)';
+    tiltCans();
+    requestAnimationFrame(run);
+  }
+  function boost(d){ vel=d*900; runT=1; }
+  document.getElementById('shelfFwd').onclick=function(){ boost(1); };
+  document.getElementById('shelfBack').onclick=function(){ boost(-1); };
+  shelf.addEventListener('mouseenter',function(){ runT=0; });
+  shelf.addEventListener('mouseleave',function(){ runT=1; });
+  /* палец: тянем полку сами, потом она едет дальше */
+  var tx=0, tp=0, tid=null;
+  shelf.addEventListener('pointerdown',function(e){ moved=0; if(e.pointerType==='mouse') return; hold=true; tid=e.pointerId; tx=e.clientX; tp=pos; });
+  shelf.addEventListener('pointermove',function(e){ if(e.pointerId!==tid) return; var dx=e.clientX-tx; moved=Math.max(moved,Math.abs(dx)); pos=tp-dx; });
+  function up(e){ if(e.pointerId!==tid) return; tid=null; setTimeout(function(){ hold=false; },900); }
+  shelf.addEventListener('pointerup',up); shelf.addEventListener('pointercancel',up);
+  addEventListener('resize',function(){ var k=setW?pos/setW:1; setW=0; measure(); pos=setW*k; });
+  if(reduce){ BASE=0; vel=0; }
+  addEventListener('load',function(){ var k=setW?pos/setW:1; setW=0; measure(); pos=setW*k; });
+  measure(); requestAnimationFrame(run);
+
+  /* карточка пива: клик по банке (если полку не тянули) */
+  var bcard=document.getElementById('beerCard'), cur=0;
+  function $(id){ return document.getElementById(id); }
+  function fill(i){
+    cur=(i+BEER.length)%BEER.length; var b=BEER[cur], sp=b[4];
+    $('bcImg').src='img/cans/c'+b[0]+'.webp'; $('bcImg').alt=b[2];
+    $('bcBrew').textContent=T(b[1]||'Крафт с нашей полки'); $('bcName').textContent=T(b[2]); $('bcStyle').textContent=T(b[3]);
+    var L=[['Крепость',sp[0]],['Горечь',sp[1]],['ЭНС',sp[2]],['Объём',sp[3]]].filter(function(x){return x[1];});
+    $('bcSpecs').innerHTML=L.map(function(x){ return '<div><b>'+T(x[1])+'</b><span>'+T(x[0])+'</span></div>'; }).join('');
+    $('bcSpecs').style.display=L.length?'':'none';
+    $('bcTaste').textContent=T(b[5]); $('bcTip').textContent=T(b[6]);
+  }
+  hooks.push(function(){ if(bcard.open) fill(cur); });
+  function openCard(i){ fill(i); if(bcard.showModal) bcard.showModal(); else bcard.setAttribute('open',''); document.documentElement.style.overflow='hidden'; }
+  bcard.addEventListener('close',function(){ document.documentElement.style.overflow=''; });
+  bcard.addEventListener('click',function(e){ if(e.target===bcard||e.target.closest('[data-close]')) bcard.close(); });
+  $('bcPrev').onclick=function(){ fill(cur-1); }; $('bcNext').onclick=function(){ fill(cur+1); };
+  bcard.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft') fill(cur-1); if(e.key==='ArrowRight') fill(cur+1); });
+  shelf.addEventListener('click',function(e){ var c=e.target.closest('.can'); if(c&&moved<8) openCard(+c.dataset.i); });
+  shelf.addEventListener('keydown',function(e){ var c=e.target.closest('.can'); if(c&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); openCard(+c.dataset.i); } });
+
+  /* ---------- разливное, по карте из их Instagram ---------- */
+  var taps=[
+    ['BEERKOVICH','Ф 4,5°',34000,1],['BEERKOVICH','Н/Ф 5°',34000,1],['BEERKOVICH Dark','Н/Ф 6,2°',44000,1],['BEERKOVICH Blanche','Н/Ф 5,5°',39000,1],
+    ['Кибрай','Н/Ф 4°',16000],['Pilsner','Ф 4,7°',28000],['Жигули','Н/Ф 4,5°',30000],['Сидр','Н/Ф 6°',44000],
+    ['Американский лагер','Н/Ф 5,5°',29000],['Мюнхенский лагер','Н/Ф 4,5°',30000],['NE IPA Волковская','Россия',69000],['Palach Porter','Plague Brew',64000],
+    ['Craft Rewort','Ф 4°',44000],['Шымкентское','Ф, Казахстан',64000],['Weissbier','Н/Ф',45000],['Cour de France Blond','Н/Ф 6,5°',37000],
+    ['IPA','Н/Ф 7,2°',45000],['APA','Н/Ф 6°',45000],['Гранатовый эль','Н/Ф 5°',29000],['Вишнёвый эль','Н/Ф 4,2°',43000]
+  ];
+  document.getElementById('taps').innerHTML=taps.map(function(t,i){
+    var r=(Math.sin(i*12.9898)*43758.5453)%1, r2=(Math.sin(i*78.233)*12345.678)%1;   /* рука пишет неровно */
+    return '<div class="tap'+(t[3]?' own':'')+'" style="transform:rotate('+(r*0.35).toFixed(2)+'deg)"><span class="n">'+t[0]+(t[3]?'*':'')+'</span><span class="a">'+t[1]+'</span><span class="d"></span><span class="p">'+sum(t[2])+'</span></div>';
+  }).join('');
+
+  /* ---------- настойки: 3D-карусель ---------- */
+  var SH={
+    soft:[['Вишня','#8e0f22'],['Вишня-мята','#9d1a33'],['Вишня пряная','#7a1020'],['Вишня-смородина','#5e0c26'],['Клубника','#c2263b'],['Клубника-базилик','#b8333b'],['Клюква','#a3122b'],['Клюква-апельсин','#c4401f'],['Клюква-розмарин','#8f1730'],['Красная смородина','#b5162c'],['Чёрная смородина','#3f0b2e'],['Лимон','#e8d24a'],['Лимон-мята','#c9d65a'],['Черника с кокосом','#3b2a5e'],['Лимон пряный','#d6a93a'],['Малина','#c2185b'],['Облепиха','#f08a1c'],['Облепиха-апельсин','#f07a12'],['Тутовник','#4a1538'],['Манго-маракуйя','#f0a525'],['Слива','#5b1d4a'],['Лесные ягоды','#6d1640'],['Цитрус','#f2b632'],['Цитрус-мята','#c8d24c'],['Цитрус пряный','#e09a2a'],['Алоэ, ананас, фиалка','#9fc56a'],['Абрикосовка','#e8902e'],['Ежевика','#3a1235']],
+    strong:[['Алтайская','#c9b78a'],['Томатная','#c2361e'],['Кимчи','#d0432a'],['Пиклбэк','#b9c26a'],['Имбирь на меду','#d9a441'],['Мёд питный','#d8a12e'],['Перцовка','#b84a1f'],['Вишня на коньяке','#6e1418'],['Копчёная груша','#b5803a'],['Таллинская','#8a5a2b'],['Щавельная','#7f9a3a'],['Бородинская','#4a2a18'],['Хрен на меду','#e3d6a0'],['Кедровка','#9a6a35']]
+  };
+  var ring=document.getElementById('ring'), stage=document.getElementById('stage'), now=document.getElementById('now');
+  var set='soft', active=0, glasses=[];
+  function buildShots(){
+    var arr=SH[set];
+    ring.innerHTML=arr.map(function(s,i){ return '<div class="glass" data-i="'+i+'" style="--c:'+s[1]+'"><span class="shine"></span><small>'+(set==='soft'?'20°':'40°')+'</small><b>'+s[0]+'</b></div>'; }).join('');
+    glasses=[].slice.call(ring.children);
+    glasses.forEach(function(g){ g.onclick=function(){ go(+g.dataset.i); }; });
+    tr(ring); active=Math.floor(arr.length/2); layout();
+  }
+  function layout(){
+    var w=stage.clientWidth, step=w<600?72:110;
+    glasses.forEach(function(g,i){
+      var d=i-active, a=Math.abs(d), s=d<0?-1:1;
+      if(d===0){ g.style.transform='translateZ(120px)'; }
+      else{ g.style.transform='translateX('+(s*(step*0.9+a*step*0.62))+'px) translateZ('+(-a*90)+'px) rotateY('+(-s*52)+'deg)'; }
+      g.style.zIndex=100-a; g.style.opacity=a>6?0:1; g.style.filter=d===0?'none':'brightness('+(1-a*0.09)+')';
+      g.classList.toggle('on',d===0);
+    });
+    now.textContent=T(SH[set][active][0]);
+    document.getElementById('prev').disabled=active===0; document.getElementById('next').disabled=active===glasses.length-1;
+  }
+  function go(i){ active=Math.max(0,Math.min(glasses.length-1,i)); layout(); }
+  document.getElementById('prev').onclick=function(){ go(active-1); };
+  document.getElementById('next').onclick=function(){ go(active+1); };
+  stage.addEventListener('mousemove',function(e){
+    var r=stage.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+    go(Math.round(x*(glasses.length-1)));
+    if(!reduce) ring.style.transform='rotateX('+((0.5-y)*10)+'deg) rotateY('+((x-0.5)*8)+'deg)';
+  });
+  stage.addEventListener('mouseleave',function(){ ring.style.transform=''; });
+  var tx=null;
+  stage.addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; },{passive:true});
+  stage.addEventListener('touchmove',function(e){ if(tx===null) return; var dx=e.touches[0].clientX-tx; if(Math.abs(dx)>40){ go(active+(dx<0?1:-1)); tx=e.touches[0].clientX; } },{passive:true});
+  stage.addEventListener('touchend',function(){ tx=null; });
+  stage.tabIndex=0;
+  stage.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft') go(active-1); if(e.key==='ArrowRight') go(active+1); });
+  document.querySelectorAll('.switch button').forEach(function(b){
+    b.onclick=function(){ set=b.dataset.set; document.querySelectorAll('.switch button').forEach(function(x){ x.setAttribute('aria-pressed',x===b); }); buildShots(); };
+  });
+  addEventListener('resize',layout);
+  hooks.push(layout);
+  buildShots();
+
+  /* ---------- кухня: актуальное меню из их Instagram + снеки магазина с Яндекс Карт ---------- */
+  var F={
+    'Горячее':{pics:[['ryad','Пивной ряд',150000],['krug','Пивной круг',100000],['papina','Папина радость',160000],['mamina','Мамина радость с кинзой',160000],['kislaya','Кислая морда',200000],['orel','Филе орла',110000]],
+      list:[['Пивной ряд','Крылья, колбаски куриная и говяжья, гренки, луковые кольца, сыр в кляре, соусы BBQ и тар-тар',150000],['Пивной круг','Крылья, сырные шары пикантные, с дунганским перцем и с копчёностями',100000],['Папина радость','Бон филе 200 г, картофель по-деревенски 200 г',160000],['Мамина радость с кинзой','Бон филе 200 г, картофель бейби, горошек, черри, томатный соус',160000],['Щека на щеку','Говяжьи щёчки 200 г, картофель 200 г, томатный соус с тимьяном',160000],['Кислая морда','Сет колбасок 500 г, квашеная капуста',200000],['Филе орла','Куриный стейк с тимьяном 200 г, картофель 200 г',110000]]},
+    'Под пиво':{pics:[['bati','Колбаски Бати',45000],['kolechki','Луковые колечки',25000],['syrok','Нежный сырок в кляре',25000],['grenki','Гренки бородинские',25000],['shary','Шары деда',30000]],
+      list:[['Колбаски Бати','Куриные и говяжьи, маринованный огурчик, тар-тар, лук криспи',45000],['Крылья любви','Крылья курочки',30000],['Гренки чесночные бородинские','',25000],['Луковые колечки','',25000],['Нежный сырок в кляре','',25000],['Шары деда','Сырные: пикантные, с дунганским перцем, с копчёностями',30000]]},
+    'Под крепкое':{pics:[['buter-losos','Бутерброды с лососем',110000],['buter-seld','Бутерброды с сельдью',90000]],
+      list:[['Бутерброды с лососем','С икрой минтая и щуки',110000],['Бутерброды с сельдью','Со шпротами и икрой щуки',90000],['Ассорти из маринадов','',40000],['Огурчики маринованные','',10000],['Помидорки черри маринованные','',10000],['Капустка красная маринованная','',10000],['Патиссончики маринованные','',10000],['Перчик маринованный','',10000],['Чесночок маринованный','',10000],['Лимон','',15000]]},
+    'Салат и суп':{pics:[['edinstv','Единственный',35000],['ramen','Рамен Ип Мана',70000]],
+      list:[['Единственный','Отварное мясо, маринованный огурчик, грибочек, лук, горчица',35000],['Суп дня: рамен Ип Мана','',70000]]},
+    'Фаст-фуд':{pics:[['hotdog','Хот-дог',25000],['lavash','Лаваш Македонского',35000],['sandwich','Сэндвич с индейкой',35000]],
+      list:[['Лаваш Македонского','',35000],['Сэндвич с индейкой','',35000],['Хот-дог','',25000],['Хот-дог с халапеньо','',25000],['Хот-дог Распутин','',35000],['Картофель по-деревенски','',20000],['Соусы','Сырный, острый, горчичный, BBQ, томатный, тар-тар',5000]]},
+    'Рыба':{pics:[['fish-002','Судак, вобла, форель',0],['fish-003','Икра и кальмар',0],['fish-004','Креветки и камбала',0],['fish-005','Мидии и соломка',0]],
+      note:'Рыба и морепродукты на развес, цену подскажет бармен.',
+      list:[['Большой судак филе'],['Маленький судак филе'],['Вобла вяленая'],['Вобла копчёная'],['Форель вяленая, кусочек'],['Форель копчёная, кусочек'],['Шамайка'],['Анчоусы'],['Жёлтый полосатик'],['Императорский полосатик'],['Икра палтуса'],['Икра трески'],['Икра форели'],['Икра воблы'],['Икра леща'],['Кальмар палочки'],['Кальмар пикантный, паутинка'],['Кальмар щупальца'],['Кольца кальмара'],['Кольца со вкусом краба'],['Стружка кальмара по-шанхайски'],['Стружка кальмара со вкусом краба'],['Креветки Том-Ям'],['Креветки в томате'],['Креветки подкопчёные'],['Креветки сушёные'],['Камбала'],['Соломка камбалы'],['Кета слайсы'],['Слайсы кижуча'],['Лакедра'],['Летунец'],['Мидии'],['Соломка сома'],['Соломка щуки'],['Щука соломка'],['Таранка с перцем'],['Тунец, золотистые кусочки'],['Хоттейст'],['Янтарная соломка']]},
+    'Снеки':{pics:[],
+      note:'Снеки с полки магазина, цены по Яндекс Картам.',
+      list:[['Карпаччо куриное','',30000],['Кавказские традиции с зеленью','175 г',30000],['Кавказские традиции','175 г / 100 г',30000],['Сырные палочки','200 г / 120 г / 90 г / 70 г',28000],['Джерки говяжьи «Бахт»','Обычные или острые',23000],['Джерки куриные «Бахт»','',20000],['Колбаски охотничьи «Бахт»','',20000],['Куриные палочки «Бахт»','',20000],['Lekker','BBQ, чили, терияки',23000],['Super Chicken','Чили или BBQ',23000],['Куриный балык','',22000],['Бастурма копчёная или в специях','',19000],['Пивчики куриные','',18000],['Колбаски из бычка','',15000],['Сыр косичка','',15000],['Косточки','50 г',20000],['Фисташки, миндаль, кешью','50 г',20000],['Арахис в кляре','Васаби, краб, острый, охотничьи колбаски, сыр',15000],['Арахис','Перец, салями, сметана, солёный, сыр, шашлык',12000],['Чипсы «Бульба», Lay\'s','Цена от',15000],['Ташкентские сухарики','Чеснок, колбаски, сыр, сметана и лук, ржаные, салями',12000],['Гарлики','Чеснок, гриль, сметана и лук, салями, шашлык, аджика',10000],['Курт','Молочный, с райхоном, копчёный. 50 г',8000],['Remax','Анчоусы, полосатик, кальмар, таранка. 32 г',21000]]},
+    'Бар':{pics:[],
+      list:[['Горячий глинтвейн','',50000],['Вино красное','0,15 л / 0,5 л',25000],['Чача светлая или тёмная','0,05 л / 0,5 л',20000],['Коньяк','0,05 л / 0,5 л',25000],['Чай классический','Чёрный или зелёный',5000],['Чай с лимоном','Чёрный или зелёный',15000],['Настойки','Шот 50 мл, 42 вкуса',30000]]}
+  };
+  F['Снеки'].pics=[['snack-jerky','Джерки',0],['snack-pistachio','Фисташки',0],['snack-fishbeer','Вяленая рыба',0],['snack-chips','Чипсы и орешки',0],['snack-vobla','Вобла',0],['snack-croutons','Сухарики',0]];
+  F['Бар'].pics=[['../prod-25','За встречу',0],['../prod-03','Пиво и крафт',0],['../atm-003','Вечер в баре',0]];
+  var tabs=document.getElementById('tabs'), menu=document.getElementById('menu'), plates=document.getElementById('plates'), note=document.getElementById('menuNote');
+  function showFood(k){
+    var c=F[k];
+    tabs.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-selected',b.dataset.k===k); });
+    var cnt=c.pics.length;
+    plates.style.gridAutoColumns=cnt>=5?'minmax(200px,1fr)':(cnt===4?'minmax(220px,260px)':'270px');
+    plates.innerHTML=c.pics.map(function(p){
+      return '<figure class="plate"><div class="pic"><img src="img/food/'+p[0]+'.webp" alt="'+p[1]+'" loading="lazy"'+(p[0].indexOf('fish')===0?' style="object-position:50% 4%"':'')+'></div><figcaption>'+p[1]+(p[2]?'<span>'+sum(p[2])+' сум</span>':'')+'</figcaption></figure>';
+    }).join('');
+    menu.className='menu'+(c.list.length>14?' wide':'');
+    menu.innerHTML=c.list.map(function(d){
+      return '<div class="dish"><div><span class="n">'+d[0]+'</span>'+(d[1]?'<span class="s">'+d[1]+'</span>':'')+'</div>'+(d[2]?'<span class="p">'+sum(d[2])+'</span>':'')+'</div>';
+    }).join('');
+    note.textContent=T(c.note||'Цены в сумах, по меню AVENUE. В UNO цены могут немного отличаться.');
+    tr(plates); tr(menu); curFood=k;
+  }
+  var curFood='Горячее'; hooks.push(function(){ var c=F[curFood]; note.textContent=T(c.note||'Цены в сумах, по меню AVENUE. В UNO цены могут немного отличаться.'); });
+  Object.keys(F).forEach(function(k){
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.dataset.k=k;
+    b.innerHTML=k+'<sup>'+F[k].list.length+'</sup>'; b.onclick=function(){ showFood(k); }; tabs.appendChild(b);
+  });
+  showFood('Горячее');
+
+  /* ---------- отзывы с Яндекс Карт ---------- */
+  var R=[
+    ['Пива хватит на любой настрой, настойки на местном дистилляте честные, без позы.','Александр Сычев'],
+    ['Персонал знает свой продукт и точно советует под твои предпочтения.','Александр'],
+    ['Атмосферно и уютно, приглушённый свет. Очень много разливного, есть даже импортное.','Ангелина Сейдаметова'],
+    ['Классный бар, крутая подборка крафта и натурального сидра, однозначно рекомендую.','Ринат Насибуллин'],
+    ['Специальная карта с сортами, которые невозможно найти в других местах.','Екатерина Белоножко'],
+    ['Вкусные настойки, вкусное фирменное пиво. Более чем адекватные цены.','Артём Сухоносов'],
+    ['Уютное место для желанных встреч и долгих разговоров. И в зале не курят.','Zi Zizova'],
+    ['Отличное пиво! Супер приветливые ребята, всё расскажут и порекомендуют.','Анна Козина'],
+    ['Очень радует, что заведение круглосуточное. Большой выбор и местного, и импорта.','Aluna Orun']
+  ];
+  function card(r){ return '<figure class="card"><div class="stars">★★★★★</div><blockquote>«'+r[0]+'»</blockquote><cite><i class="ph ph-user-circle"></i>'+r[1]+'</cite></figure>'; }
+  document.getElementById('cards1').innerHTML=R.slice(0,3).map(card).join('');
+  document.getElementById('cards2').innerHTML=R.slice(3).map(card).join('');
+  var tg=document.getElementById('revToggle'), more=document.getElementById('moreRev');
+  tg.onclick=function(){
+    var o=more.classList.toggle('open'); tg.setAttribute('aria-expanded',o);
+    document.getElementById('revLabel').textContent=T(o?'Свернуть':'Ещё 6 отзывов');
+    document.getElementById('allRev').classList.toggle('show',o);
+  };
+  hooks.push(function(){ document.getElementById('revLabel').textContent=T(more.classList.contains('open')?'Свернуть':'Ещё 6 отзывов'); });
+  setLang(LANG,false);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('gs');
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize:true});
+  /* банки и бутылки вылетают из-за краёв и чуть плывут при прокрутке */
+  document.querySelectorAll('.flyer').forEach(function(f){
+    var side=f.dataset.from||'left', rot=+(f.dataset.rot||0);
+    var from={left:{xPercent:-160},right:{xPercent:160},top:{yPercent:-160},bottom:{yPercent:160}}[side];
+    from.rotation=rot+(side==='left'?-35:35); from.opacity=0;
+    gsap.fromTo(f,from,{xPercent:0,yPercent:0,rotation:rot,opacity:1,ease:'power3.out',
+      scrollTrigger:{trigger:f.parentElement,start:'top 85%',end:'top 25%',scrub:1}});
+    gsap.to(f,{y:-(+(f.dataset.drift||60)),ease:'none',scrollTrigger:{trigger:f.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+  /* доска выезжает из-за правого края на своё место */
+  gsap.fromTo('#board',{xPercent:115,rotation:7,opacity:.2},{xPercent:0,rotation:-.6,opacity:1,ease:'power2.out',
+    scrollTrigger:{trigger:'#draft',start:'top 85%',end:'top 15%',scrub:.8}});
+  /* блоки выезжают в объёме: лёгкий поворот из глубины */
+  gsap.utils.toArray('.reveal').forEach(function(el){
+    gsap.fromTo(el,{rotationX:14,y:60,opacity:0,transformPerspective:900,transformOrigin:'50% 100%'},
+      {rotationX:0,y:0,opacity:1,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+})();
+</script>
+</body>
+</html>
