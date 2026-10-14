@@ -195,6 +195,8 @@ section{position:relative}
 .draft::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(10,15,12,.55)}
 .draft-grid{display:grid;grid-template-columns:.8fr 1.6fr;gap:56px;align-items:center}
 .draft-intro p{color:#e2dccb;max-width:34ch;margin:22px 0 28px}
+.draft .wrap{position:relative;z-index:2}
+.draft-intro h2,.draft-intro .kicker,.draft-intro p,.draft-intro .legend{text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.6)}
 .draft-intro .legend{display:grid;gap:10px;font-size:14px;color:var(--muted)}
 .draft-intro .legend b{color:var(--gold-2);font-weight:600;display:inline-block;min-width:58px}
 .board{position:relative;padding:17px;background:#2a180b url(img/deco/wood.webp) 30% 40%/900px auto;box-shadow:0 34px 60px -22px rgba(0,0,0,.9),inset 0 2px 2px rgba(255,214,160,.22),inset 0 -3px 4px rgba(0,0,0,.65),inset 2px 0 2px rgba(255,214,160,.1),inset -2px 0 3px rgba(0,0,0,.5);color:#f1efe6;transform:rotate(-.6deg)}
@@ -432,7 +434,9 @@ footer .wrap{z-index:2}
   .tap.own .n::after{margin-top:1px}
   .board .foot{font-size:15px;margin-top:12px;gap:8px}
   /* банки не заходят на текст: маленькие, внизу, в отступе блока */
-  .flyer{width:54px!important;top:auto!important;bottom:-92px!important}
+  .flyer{width:80px!important;top:auto!important;bottom:-38px!important}
+  #draft,#food,#reviews{padding-bottom:190px}                 /* место под банку, текст не перекрывается */
+  .draft .hop{width:190px!important;height:190px!important}
   .flyer[data-from="left"]{left:-6px!important;right:auto!important}
   .flyer[data-from="right"]{right:-6px!important;left:auto!important}
   .stage{height:360px}
