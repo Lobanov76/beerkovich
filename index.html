@@ -6,6 +6,10 @@
 <title>Beerkovich - разливное, крафт и настойки в Ташкенте</title>
 <meta name="description" content="Beerkovich: алкомаркет, бар и рюмочная в Ташкенте. 20 кранов, 250 видов крафта, 42 настойки, кухня до 4 утра. UNO на Шевченко, 8 открыт 24/7, доставка круглосуточно.">
 <meta name="theme-color" content="#0e1712">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Beerkovich">
 <meta property="og:url" content="https://lobanov76.github.io/beerkovich/">
@@ -433,12 +437,12 @@ footer .wrap{z-index:2}
   .tap .d{display:none}
   .tap.own .n::after{margin-top:1px}
   .board .foot{font-size:15px;margin-top:12px;gap:8px}
-  /* банки на телефоне: сверху справа, рядом с заголовком; текст рядом чуть уже, чтобы не залезал под банку */
-  .flyer{width:72px!important;bottom:auto!important;left:auto!important;right:-4px!important}
-  #draft .flyer{top:64px!important}
-  #food .flyer{top:56px!important}
-  #reviews .flyer{top:150px!important}
-  .draft-intro,.food-head,.rev-grid>div:first-child{padding-right:76px}
+  /* банки на телефоне: внизу блока, видны, но не заходят на текст */
+  .flyer{width:70px!important;top:auto!important;bottom:-62px!important}
+  .flyer[data-from="left"]{left:-4px!important;right:auto!important}
+  .flyer[data-from="right"]{right:-4px!important;left:auto!important}
+  .menu-note{padding-right:72px}
+  #draft .flyer{bottom:-86px!important}
   .draft .hop{width:190px!important;height:190px!important}
   .stage{height:360px}
   .glass{width:170px;height:260px;margin-left:-85px}
