@@ -418,9 +418,23 @@ footer .wrap{z-index:2}
   .track{gap:14px}
   .can{width:150px}
   .draft,.food,.shot{padding:80px 0}
-  .board{padding:28px 18px 26px;border-width:10px}
-  .taps{grid-template-columns:1fr}
-  .tap{font-size:21px}
+  /* доска на телефоне: целиком, в две колонки, как на компьютере */
+  .board{padding:9px;transform:rotate(-.4deg)}
+  .slate{padding:20px 12px 16px}
+  .board h3{font-size:34px}
+  .board .sub{font-size:17px;margin:2px 0 14px}
+  .taps{grid-template-columns:1fr 1fr;column-gap:12px}
+  .tap{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:5px;align-items:baseline;padding:4px 0;font-size:16px;line-height:1.1}
+  .tap .n{grid-column:1;grid-row:1;overflow-wrap:anywhere}
+  .tap .a{grid-column:1;grid-row:2;font-size:12px;white-space:normal;margin-top:1px}
+  .tap .p{grid-column:2;grid-row:1;font-size:15px}
+  .tap .d{display:none}
+  .tap.own .n::after{margin-top:1px}
+  .board .foot{font-size:15px;margin-top:12px;gap:8px}
+  /* банки не заходят на текст: маленькие, внизу, в отступе блока */
+  .flyer{width:54px!important;top:auto!important;bottom:-92px!important}
+  .flyer[data-from="left"]{left:-6px!important;right:auto!important}
+  .flyer[data-from="right"]{right:-6px!important;left:auto!important}
   .stage{height:360px}
   .glass{width:170px;height:260px;margin-left:-85px}
   .glass b{font-size:18px}
@@ -1091,10 +1105,10 @@ html.gs .reveal{opacity:1;transform:none;transition:none}
     from.rotation=rot+(side==='left'?-35:35); from.opacity=0;
     gsap.fromTo(f,from,{xPercent:0,yPercent:0,rotation:rot,opacity:1,ease:'power3.out',
       scrollTrigger:{trigger:f.parentElement,start:'top 85%',end:'top 25%',scrub:1}});
-    gsap.to(f,{y:-(+(f.dataset.drift||60)),ease:'none',scrollTrigger:{trigger:f.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
+    if(innerWidth>700) gsap.to(f,{y:-(+(f.dataset.drift||60)),ease:'none',scrollTrigger:{trigger:f.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
   });
-  /* доска выезжает из-за правого края на своё место */
-  gsap.fromTo('#board',{xPercent:115,rotation:7,opacity:.2},{xPercent:0,rotation:-.6,opacity:1,ease:'power2.out',
+  /* доска выезжает из-за правого края на своё место (на телефоне просто стоит) */
+  if(innerWidth>700) gsap.fromTo('#board',{xPercent:115,rotation:7,opacity:.2},{xPercent:0,rotation:-.6,opacity:1,ease:'power2.out',
     scrollTrigger:{trigger:'#draft',start:'top 85%',end:'top 15%',scrub:.8}});
   /* блоки выезжают в объёме: лёгкий поворот из глубины */
   gsap.utils.toArray('.reveal').forEach(function(el){
